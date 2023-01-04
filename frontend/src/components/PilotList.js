@@ -12,6 +12,8 @@ const PilotList = ({ pilots }) => {
                             <p>{pilot.phoneNumber}</p>
                             <p>{pilot.createdDt}</p>
                             <p>{pilot.email}</p>
+                            <p>{pilot.closest_distance}</p>
+                            <p>{pilot.last_seen}</p>
                         </div>
                     ))
                     : <p>No pilots to show.</p>
