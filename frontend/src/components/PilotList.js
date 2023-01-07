@@ -1,23 +1,40 @@
-const PilotList = ({ pilots }) => {
+import { Table } from 'react-bootstrap'
+
+const PilotList = ({ data }) => {
+
+    const listPilotData = (pilots) => (
+        <div>
+            <Table bordered hover>
+                <tbody>
+
+                    {pilots.map((item) => {
+                        return (
+                            <tr>
+                                <td>
+                                    {Object.keys(item).map((key, index) => {
+                                        return (
+                                            <div key={item.pilotId + index}>
+                                                <p>{key}: {item[key]}</p>
+                                            </div>
+                                        )
+                                    }
+                                    )}
+                                </td>
+                            </tr>
+                        )
+                    })
+                    }
+                </tbody>
+            </Table>
+        </div>
+    )
+
     return (
         <div>
             <h2>Violating Drones:</h2>
-            {
-                pilots
-                    ? pilots.map(pilot => (
-                        <div>
-                            <p>{pilot.pilotId}</p>
-                            <p>{pilot.firstName}</p>
-                            <p>{pilot.lastName}</p>
-                            <p>{pilot.phoneNumber}</p>
-                            <p>{pilot.createdDt}</p>
-                            <p>{pilot.email}</p>
-                            <p>{pilot.closest_distance}</p>
-                            <p>{pilot.last_seen}</p>
-                        </div>
-                    ))
-                    : <p>No pilots to show.</p>
-            }
+            {(!data || data.length === 0)
+                ? <div>No data to show.</div>
+                : listPilotData(data)}
         </div>
     )
 }

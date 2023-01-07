@@ -1,56 +1,70 @@
 import { useState, useEffect } from 'react'
+import { Container, Col, Row, Navbar, Spinner } from 'react-bootstrap'
 import PilotList from './components/PilotList'
 import pilotService from './services/pilots'
-// import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
-  const [pilots, setPilots] = useState([])
-  const [data, setData] = useState([{test: "test"}])
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
+
     pilotService
       .getPilots()
-      .then(pilots => setPilots(pilots))
-      .catch(error => setPilots([]))
+      .then(pilots => {
+        setData(pilots)
+        setLoading(false)
+      })
+      .catch(error => {
+        setData([])
+        setLoading(false)
+      })
 
-      const ws = new WebSocket('ws://localhost:8000/ws/backend/pilot_list/')
+    const ws = new WebSocket('ws://localhost:8000/ws/backend/pilot_list/')
 
-      ws.onmessage = (event) => {
-        const json = JSON.parse(event.data)
-        try {
-          if ((json.event = "data")) {
-            setData(json.data)
-          }
-        } catch (err) {
-          console.log(err)
+    ws.onmessage = (event) => {
+      const json = JSON.parse(event.data)
+      // console.log(typeof json)
+      try {
+        if ((json.event = "data")) {
+          // console.log(json.data)
+          const newData = JSON.parse(json.data)
+          setData(newData)
         }
+      } catch (err) {
+        console.log(err)
       }
+    }
+
   }, [])
 
-  const showData = () => {
-    return (
-      <div>
-        {data &&
-          data.map(
-            item => Object.keys(item).map(
-              key => {
-                return (
-                <div>
-                  <p>{key}: {item[key]}</p>
-                </div>
-                )}))
-          }
-      </div>
-    )
-  }
+  const showSpinner = () => (
+    <div>
+      <p>Loading data...</p>
+      <Spinner animation="border" variant="info" />
+    </div>
+  )
 
   return (
     <div>
-      <PilotList pilots={pilots} />
-      <h3>Test data</h3>
-      <div>
-        {data ? showData() : <div></div>}
-      </div>
+      <Navbar bg="dark">
+        <Container>
+          <Navbar.Brand style={{ color: 'white' }}>Project Birdnest 2023</Navbar.Brand>
+        </Container>
+      </Navbar>
+      <Container>
+        <Row>
+          <Col>
+            {loading
+              ? showSpinner()
+              : <PilotList data={data} />
+            }
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }

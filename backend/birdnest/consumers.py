@@ -43,3 +43,15 @@ class PilotListConsumer(WebsocketConsumer):
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({"data": data}))
+
+class PilotBroadcastingConsumer(WebsocketConsumer):
+
+    def broadcast(self, event):
+        while True:
+            self.channel_layer.send(
+                "pilot_list",
+                {
+                    "type": "new_ticks",
+                    "data": "hello world",
+                },
+            )
