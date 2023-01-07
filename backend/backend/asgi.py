@@ -14,15 +14,13 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings_dev')
 
-application = get_asgi_application()
+django_asgi_application = get_asgi_application()
 
 import birdnest.routing
 
 application = ProtocolTypeRouter(
     {
-        "http": django_asgi_app,
-        "websocket": AllowedHostsOriginValidator(
-            URLRouter(birdnest.routing.websocket_urlpatterns)
-        ),
+        "http": django_asgi_application,
+        "websocket": URLRouter(birdnest.routing.urlpatterns),
     }
 )

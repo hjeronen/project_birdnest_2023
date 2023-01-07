@@ -1,9 +1,7 @@
 from django.urls import path
-from channels.routing import ProtocolTypeRouter, URLRouter
-from . import consumers
 
-application = ProtocolTypeRouter({
-    "websocket": URLRouter([
-        path("ws/backend/pilot_list/", consumers.PilotListConsumer),
-    ]),
-})
+from birdnest.consumers import PilotListConsumer
+
+urlpatterns = [
+    path("ws/backend/pilot_list/", PilotListConsumer.as_asgi()),
+]

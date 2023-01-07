@@ -10,31 +10,39 @@ import numpy as np
 class Command(BaseCommand):
     help = 'broadcast data'
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('poll_ids', nargs='+', type=int)
-    
-
     def handle(self, *args, **options):
         while True:
             response = requests.get('http://assignments.reaktor.com/birdnest/drones')
+            print('response:')
+            print(response)
+            if response.status_code == 429:
+                print('error, new loop')
+                time.sleep(2)
+                continue
             response_as_dict = xmltodict.parse(response.text)
             drones = get_violating_drones(response_as_dict)
             pilots = []
             for drone in drones:
                 res = requests.get('http://assignments.reaktor.com/birdnest/pilots/%s' % drone['serialNumber'])
                 pilot = res.json()
+                if 'error' in pilot:
+                    print('got error')
+                    continue
+                print(pilot)
                 pilots.append(pilot)
             broadcast_ticks(pilots)
             time.sleep(2)
 
 def broadcast_ticks(ticks):
         print('Broadcasting')
+        print(ticks)
         channel_layer = channels.layers.get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
+        async_to_sync(channel_layer.send)(
             'pilot_list', {
                 "type": 'new_ticks',
-                "content": json.dumps(ticks),
+                "data": json.dumps(ticks),
             })
+        print(async_to_sync(channel_layer.receive)('pilot_list'))
 
 def get_violating_drones(data):
     drones = data['report']['capture']['drone']

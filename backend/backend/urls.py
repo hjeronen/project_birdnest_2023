@@ -24,4 +24,5 @@ router.register(r'pilots', views.PilotView, 'pilot')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('', include('birdnest.routing'))
 ]
