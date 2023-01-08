@@ -10,22 +10,8 @@ class Pilot(models.Model):
     email = models.CharField(max_length=100)
     closest_distance = models.FloatField(default=100000)
     last_seen = models.DateTimeField(default=datetime.now)
+    drone_serial_number = models.CharField(max_length=100, blank=True)
 
     class Meta:
         db_table = 'pilots'
-
-class Drone(models.Model):
-    serialNumber = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    manufacturer = models.CharField(max_length=100)
-    mac = models.CharField(max_length=100)
-    ipv4 = models.CharField(max_length=100)
-    ipv6 = models.CharField(max_length=100)
-    firmware = models.CharField(max_length=100)
-    positionY = models.FloatField()
-    positionX = models.FloatField()
-    altitude = models.FloatField()
-    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'drones'
+        ordering = ['last_seen']

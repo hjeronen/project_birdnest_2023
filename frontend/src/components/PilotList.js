@@ -1,37 +1,45 @@
-import { Table } from 'react-bootstrap'
+import { Card, ListGroup } from 'react-bootstrap'
 
 const PilotList = ({ data }) => {
 
     const listPilotData = (pilots) => (
         <div>
-            <Table bordered hover>
-                <tbody>
-
-                    {pilots.map((item) => {
-                        return (
-                            <tr>
-                                <td>
-                                    {Object.keys(item).map((key, index) => {
-                                        return (
-                                            <div key={item.pilotId + index}>
-                                                <p>{key}: {item[key]}</p>
-                                            </div>
-                                        )
-                                    }
-                                    )}
-                                </td>
-                            </tr>
-                        )
-                    })
-                    }
-                </tbody>
-            </Table>
+            {pilots.map(pilot => {
+                return (
+                    <Card key={pilot.pilotId}>
+                        <Card.Body>
+                            <Card.Title>
+                                {pilot.firstName} {pilot.lastName}
+                            </Card.Title>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>
+                                    Email: {pilot.email}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    Phone: {pilot.phoneNumber}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    Drone serial nr: {pilot.drone_serial_number}
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    Closest distance: {
+                                        Math.round(pilot.closest_distance / 100) / 10
+                                    } meters
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    Last seen: {pilot.last_seen}
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Card.Body>
+                    </Card>
+                )
+            })}
         </div>
     )
 
     return (
         <div>
-            <h2>Violating Drones:</h2>
+            <h3>Pilots of the Drones Violating the NDZ:</h3>
             {(!data || data.length === 0)
                 ? <div>No data to show.</div>
                 : listPilotData(data)}

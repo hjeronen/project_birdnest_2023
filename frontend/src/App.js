@@ -26,14 +26,11 @@ const App = () => {
     const ws = new WebSocket('ws://localhost:8000/ws/backend/pilot_list/')
 
     ws.onmessage = (event) => {
+      // string to object
       const json = JSON.parse(event.data)
-      // console.log(typeof json)
       try {
-        if ((json.event = "data")) {
-          // console.log(json.data)
-          const newData = JSON.parse(json.data)
-          setData(newData)
-        }
+        const newData = json.data
+        setData(newData)
       } catch (err) {
         console.log(err)
       }
