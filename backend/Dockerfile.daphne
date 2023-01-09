@@ -1,0 +1,10 @@
+FROM python:3.8.10
+ENV PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+# RUN pip install -U 'Twisted[tls,http2]'
+RUN python manage.py migrate
+EXPOSE 8001
+CMD python manage.py runserver 0.0.0.0:8001
+# CMD daphne -p 8001 backend.asgi:application

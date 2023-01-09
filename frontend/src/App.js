@@ -23,7 +23,7 @@ const App = () => {
         setLoading(false)
       })
 
-    const ws = new WebSocket('ws://localhost:8000/ws/backend/pilot_list/')
+    const ws = new WebSocket('ws://' + window.location.host + process.env.REACT_APP_WS_URL)
 
     ws.onmessage = (event) => {
       // string to object

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:8000/api/'
+const baseURL = process.env.REACT_APP_API_URL
 
 const getPilots = async props => {
-    const response = await axios.get(baseURL + 'pilots/')
+    const response = await axios.get(baseURL + 'api/pilots/')
     return response.data
 }
 
