@@ -8,3 +8,5 @@ Dockerfile
 **/venv
 **/*.md
 .coverage
+db.sqlite3
+*_requirements.txt

@@ -20,7 +20,7 @@ class Command(BaseCommand):
     help = 'broadcast pilot data'
 
     def handle(self, *args, **options):
-
+        print('Broadcasting')
         while True:
             response = requests.get('http://assignments.reaktor.com/birdnest/drones')
             if response.status_code != 200:
@@ -64,7 +64,6 @@ def get_pilots(drones):
     return pilots
 
 def broadcast_pilots(pilots):
-    print('Broadcasting')
     channel_layer = channels.layers.get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         'pilot_list', {

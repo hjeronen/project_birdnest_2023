@@ -16,6 +16,18 @@ services:
       - ./backend/backend/.env
     ports:
       - 8001:8001
+  pilot_broadcast:
+    container_name: birdnest-broadcaster
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.broadcaster
+    depends_on:
+      - redis
+      - daphne
+    env_file:
+      - ./backend/backend/.env
+    ports:
+      - 8002:8002
   gunicorn:
     container_name: birdnest-gunicorn
     build:

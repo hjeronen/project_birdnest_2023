@@ -18,20 +18,8 @@ class PilotListConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name, self.channel_name
         )
-    
-    # # Receive message from WebSocket
-    # def receive(self, text_data):
-    #     text_data_json = json.loads(text_data)
-    #     data = text_data_json["data"]
 
-    #     # Send message to room group
-    #     async_to_sync(self.channel_layer.group_send)(
-    #         self.room_group_name, {"type": "pilot_data", "data": data}
-    #     )
-
-    # Receive message from room group
     def pilot_data(self, event):
         data = event["data"]
 
-        # Send message to WebSocket
         self.send(text_data=json.dumps({"data": data}))
