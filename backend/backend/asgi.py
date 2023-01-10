@@ -13,7 +13,16 @@ from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
 from birdnest.consumers import PilotListConsumer
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings_dev')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings_dev')
+
+# set settings file to use
+use_prod_settings = os.environ.get('DJANGO_PRODUCTION', 'false')
+if use_prod_settings == 'false':
+    print('Using development settings.')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings_dev')
+else:
+    print('Using production settings.')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
 django_asgi_application = get_asgi_application()
 
