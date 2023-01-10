@@ -1,0 +1,5 @@
+FROM postgres
+ENV POSTGRES_DB=birdnest
+ENV POSTGRES_USER=django_birdnest
+ENV POSTGRES_PASSWORD=birdnest2023
+EXPOSE 5432
