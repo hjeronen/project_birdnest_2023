@@ -10,3 +10,4 @@ Dockerfile
 .coverage
 db.sqlite3
 *_requirements.txt
+**/.env
