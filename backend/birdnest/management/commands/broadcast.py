@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 response = requests.get('http://assignments.reaktor.com/birdnest/drones')
                 if response.status_code != 200:
                     print('error: ' + str(response.status_code))
-                    time.sleep(2)
+                    time.sleep(10)
                     continue
 
                 response_as_dict = xmltodict.parse(response.text)
@@ -43,7 +43,7 @@ class Command(BaseCommand):
             except:
                 print('An error occurred.')
 
-            time.sleep(2)
+            time.sleep(10)
 
 
 def get_pilots(drones):
