@@ -54,7 +54,9 @@ const App = () => {
     <div>
       <Navbar bg="dark">
         <Container>
-          <Navbar.Brand style={{ color: 'white' }}>Project Birdnest 2023</Navbar.Brand>
+          <Navbar.Brand style={{ color: 'white' }}>
+            Project Birdnest 2023
+          </Navbar.Brand>
         </Container>
       </Navbar>
       <Container>

@@ -5,7 +5,6 @@ WORKDIR /app
 
 COPY . .
 
-# ENV REACT_APP_API_URL=/
 ENV REACT_APP_WS_URL=/ws/pilot_list/
 
 RUN npm ci

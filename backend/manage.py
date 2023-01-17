@@ -6,6 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
+
     # set settings file to use
     use_prod_settings = os.environ.get('DJANGO_PRODUCTION', 'false')
     if use_prod_settings == 'false':
