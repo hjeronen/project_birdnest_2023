@@ -22,22 +22,27 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('Broadcasting')
         while True:
-            response = requests.get('http://assignments.reaktor.com/birdnest/drones')
-            if response.status_code != 200:
-                print('error: ' + str(response.status_code))
-                time.sleep(2)
-                continue
+            try:
+                response = requests.get('http://assignments.reaktor.com/birdnest/drones')
+                if response.status_code != 200:
+                    print('error: ' + str(response.status_code))
+                    time.sleep(2)
+                    continue
 
-            response_as_dict = xmltodict.parse(response.text)
-            drones = get_violating_drones(response_as_dict)
-            pilots = get_pilots(drones)
+                response_as_dict = xmltodict.parse(response.text)
+                drones = get_violating_drones(response_as_dict)
+                pilots = get_pilots(drones)
 
-            update_pilot_list(pilots)
+                update_pilot_list(pilots)
 
-            pilot_list = list(Pilot.objects.all())
-            serializer = PilotSerializer(pilot_list, many=True)
+                pilot_list = list(Pilot.objects.all())
+                serializer = PilotSerializer(pilot_list, many=True)
 
-            broadcast_pilots(serializer.data)
+                broadcast_pilots(serializer.data)
+
+            except:
+                print('An error occurred.')
+
             time.sleep(2)
 
 
