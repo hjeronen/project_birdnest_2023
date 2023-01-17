@@ -23,7 +23,12 @@ const App = () => {
         setLoading(false)
       })
 
-    const ws = new WebSocket('ws://' + window.location.host + process.env.REACT_APP_WS_URL)
+    var ws_scheme = window.location.protocol === "https:" ? "wss://" : "ws://"
+    const ws = new WebSocket(
+      ws_scheme 
+      + window.location.host 
+      + process.env.REACT_APP_WS_URL
+    )
 
     ws.onmessage = (event) => {
       // string to object
