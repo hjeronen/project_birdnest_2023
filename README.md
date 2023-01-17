@@ -20,7 +20,7 @@ Django Channels is used for handling websocket connection between client and ser
 
 The django-admin command broadcast.py is run on a continuous loop (every few seconds) also in its own container (I'm sure there would have been a better way to do this, a subprocess or a background worker etc....)
 
-The backend is configured to use a PostgreSQL database for "permanent" storage - this is also running inside a container, since it is rather difficult to get free server space from anywhere.
+The backend is configured to use a PostgreSQL database for "permanent" storage - this is also running inside a container, since it is rather difficult to get free server space from anywhere. All data is lost when the container is stopped.
 
 ## Running Locally
 
