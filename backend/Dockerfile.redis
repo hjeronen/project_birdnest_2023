@@ -2,4 +2,4 @@ FROM redis:5
 
 EXPOSE 6379
 
-CMD sh -c "rm -f /data/dump.rdb && redis-server"
+CMD redis-server --save "" --appendonly no
