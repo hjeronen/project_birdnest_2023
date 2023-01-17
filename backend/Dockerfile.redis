@@ -2,4 +2,4 @@ FROM redis:5
 
 EXPOSE 6379
 
-CMD [ "redis-server" ]
+CMD sh -c "rm -f /data/dump.rdb && redis-server"
