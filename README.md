@@ -6,7 +6,7 @@ Solution for Reaktor's [Developer Trainee, Summer 2023](https://www.reaktor.com/
 
 https://birdnest-frontend-hellurei-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/
 
-***NOTICE!*** The application is running on OpenShift container platform, on a developer sandbox account. It will be removed after 30 days when the free trial period ends (deployed 17.1.2023).
+***NOTICE!*** The application is running on OpenShift container platform, on a developer sandbox account. It will be removed after 30 days when the free trial period ends (deployed 17.1.2023). Also the application has to be temporarily shut down once in 12 hours due to the developer sandbox terms of use. I know this service is not meant to be used as production environment, but it is very difficult to find a free hosting service these days.
 
 The page should show a list of pilots whose drones have violated the no fly zone in the past ten minutes. The list is ordered by the 'Last seen' field. The oldest sightings are at the top of the list and should disappear once the drone has not been seen in over ten minutes. The newest sightings will appear at the bottom of the list.
 
