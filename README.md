@@ -24,6 +24,8 @@ The backend is configured to use a PostgreSQL database for "permanent" storage -
 
 ## Running Locally
 
+Requires Docker to be installed and Docker Desktop App to be running.
+
 After cloning the repository, create a .env file at the root of the project, the same directory where the docker-compose.yml file is. It should have the following contents:
 
 ``````
